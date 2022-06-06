@@ -1,22 +1,17 @@
 import React, { useState, useEffect} from 'react'
-import { TodoForm } from './TodoForm'
-import { TodoList } from './TodoList'
-import { RiCloseCircleLine, TiEdit } from 'react-icons/ri'
-import { click } from '@testing-library/user-event/dist/click'
-import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
+import CheckIcon from '@mui/icons-material/Check';
 import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Comment';
 import TextField from '@mui/material/TextField';
-import Popover from '@mui/material/Popover';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 export const TodoItem = ({ todo, setTodos, todos, idx }) => {
     const [input, setInput] = useState('');
     const [deadline, setDeadline] = useState('');
-        const [title, setTitle] = useState('');
+    const [title, setTitle] = useState('');
     const [edit, setEdit] = useState({
         id:''
     })
@@ -39,6 +34,7 @@ export const TodoItem = ({ todo, setTodos, todos, idx }) => {
         const newValue = todos
         newValue.map((item) => {
             if (item.id === todo.id) {
+                item.title = title;
                 item.text = input
                 item.deadline = deadline;
             }
@@ -51,7 +47,6 @@ export const TodoItem = ({ todo, setTodos, todos, idx }) => {
         return (
             <div>
                 <form onSubmit={submitEdit}>
-            <div>
                 <TextField
                 className="title_form"
                 id="title"
@@ -64,7 +59,6 @@ export const TodoItem = ({ todo, setTodos, todos, idx }) => {
                 }}
 
             ></TextField>
-            </div>
             <TextField
                 id="todoItem"
                 type='text'
@@ -81,8 +75,13 @@ export const TodoItem = ({ todo, setTodos, todos, idx }) => {
                     setDeadline(e.target.value)
                 }}
                 value={deadline}
-            />
-                <button className="addbtn_form" >Update</button>
+                    />
+                <IconButton edge='start' style={{margin: "6px 5px", color: "green"}} onClick={(e) => {
+                            submitEdit(e)
+                        }}>
+                    <CheckIcon/>
+                </IconButton>
+                {/* <button className="addbtn_form" >Update</button> */}
 
             <div id="noticeItem" style={{color: "red", fontSize:"70%"}}></div>
         </form>
@@ -117,9 +116,24 @@ export const TodoItem = ({ todo, setTodos, todos, idx }) => {
             <ListItem
                 key={todo.id}
                 secondaryAction={
-                    <IconButton edge='end' aria-label='comments'>
+                    <div>
+                        <IconButton edge='start' onClick={() => {
+                            setInput(todo.text)
+                            setEdit({ id: "1" })
+                            setTitle(todo.title)
+                            setDeadline(todo.deadline)
+                        }}>
                         {/* <CommentIcon/> */}
-                     </IconButton>
+                            <EditIcon/>
+                        </IconButton>
+                        <IconButton edge='end' size='large' onClick={()=>{
+                            const newValue = todos.filter(e => e.id != todo.id)
+                            setTodos(newValue)
+                        }}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </div>
+
                  }
                     disablePadding
             >
@@ -142,8 +156,8 @@ export const TodoItem = ({ todo, setTodos, todos, idx }) => {
                     <div>
                         <div>
                             {!todo.isComplete ? (<span style={{ fontSize: "25px" }}>{todo.title} </span>) :
-                            <del style={{fontSize: "25px"}}>{todo.title} </del>}
-                        <span>(Deadline: {todo.deadline})</span>
+                                <del style={{ fontSize: "25px" }}>{todo.title} </del>}
+                            <span>(Deadline: {todo.deadline})</span>
                         </div>
                         {!todo.isComplete ? (<span>{todo.text}</span>) : (<del>{todo.text}</del>)}
 

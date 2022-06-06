@@ -85,3 +85,6 @@ div.App > div.MyTodo {
   width:84%;
   height: 100%;
 }
+.IconButton{
+  margin: 0px 100px;
+}
