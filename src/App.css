@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  margin: 5% 20%;
+  margin: 2% 20%;
   background-color: #fcbe78;
   border-radius: 4%;
 }
@@ -81,7 +81,7 @@ ul.menu_ul {
 }
 div.App > div.MyTodo {
   text-align: center;
-  margin: 5% 8%;
+  margin: 2% 8%;
   width:84%;
   height: 100%;
 }

@@ -1,10 +1,9 @@
 import react, { useState} from "react";
 import TextField from '@mui/material/TextField';
-import { toUnitless } from "@mui/material/styles/cssUtils";
-import { InputLabel } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+
 export const TodoForm = ({ setTodos, todos}) => {
     const [input, setInput] = useState('');
     const [deadline, setDeadline] = useState('');
@@ -107,18 +106,25 @@ export const TodoForm = ({ setTodos, todos}) => {
                 }}
                 ></TextField>
 
-                <TextField
+            <TextField
+                label="Deadline"
                 className="Deadline_form"
-                type={'date'}
+                type='date'
                 id="Deadline"
                 // label='Deadline'
                 onChange={(e) => {
                     setDeadline(e.target.value)
                 }}
                 value={deadline}
+                InputLabelProps={{
+          shrink: true,
+        }}
                 ></TextField>
+            {/* <IconButton edge='start'
+                onClick={inputTextHandler}
+            ><AddBoxIcon/></IconButton> */}
+            <Button className="addbtn_form" onClick={inputTextHandler}><AddBoxIcon style={{fontSize:"40px", color:"#2F2F2F"}}/></Button>
 
-            <Button className="addbtn_form" onClick={inputTextHandler}><AddBoxIcon style={{fontSize:"40px", color:"#F7B434"}}/></Button>
             <div id="notice" style={{color: "red", fontSize:"70%"}}></div>
         </form>
     )

@@ -160,7 +160,6 @@ export const TodoItem = ({ todo, setTodos, todos, idx }) => {
                             <span>(Deadline: {todo.deadline})</span>
                         </div>
                         {!todo.isComplete ? (<span>{todo.text}</span>) : (<del>{todo.text}</del>)}
-
                     </div>
             </ListItemButton>
             </ListItem>
